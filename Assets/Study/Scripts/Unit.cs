@@ -1,27 +1,34 @@
+using System;
 using UnityEngine;
 
 namespace StudyFromCodeMonkey.Study.Scripts
 {
     public class Unit : MonoBehaviour
     {
-        [SerializeField] private Animator unityAnimator; 
-        [SerializeField] private float moveSpeed = 4f;
+        [SerializeField] private Animator unityAnimator;
+        [SerializeField] private float moveSpeed;
+        [SerializeField] private float rotateSpeed;
+        [SerializeField] private float stoppingDistance;
         
         private Vector3 _targetPosition;
-        private float _stoppingDistance = 0.1f;
-        
+
+        private void Awake()
+        {
+            _targetPosition = transform.position;
+        }
+
         private void Update()
         {
             Transform unitTransform = transform;
             
-            if (Vector3.Distance(unitTransform.position, _targetPosition) > _stoppingDistance)
+            if (Vector3.Distance(unitTransform.position, _targetPosition) > stoppingDistance)
             {
                 Vector3 position = unitTransform.position;
                 Vector3 moveDirection = (_targetPosition - position).normalized;
                 position += moveDirection * (moveSpeed * Time.deltaTime);
                 unitTransform.position = position;
 
-                transform.forward = Vector3.Lerp(transform.forward,moveDirection, 0.5f);
+                transform.forward = Vector3.Lerp(transform.forward,moveDirection, Time.deltaTime * rotateSpeed);
                 
                 unityAnimator.SetBool("isWalking", true);
             }
@@ -29,14 +36,8 @@ namespace StudyFromCodeMonkey.Study.Scripts
             {
                 unityAnimator.SetBool("isWalking", false);
             }
-            
-            if (Input.GetMouseButtonDown(0))
-            {
-                Move(MouseWorld.GetPosition());
-            }
         }
-
-        private void Move(Vector3 targetPosition)
+        public void Move(Vector3 targetPosition)
         {
             _targetPosition = targetPosition;
         }
