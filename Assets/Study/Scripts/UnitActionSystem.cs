@@ -22,7 +22,6 @@ namespace StudyFromCodeMonkey.Study.Scripts
             }
             Instance = this;
         }
-    
         private void Update()
         {
             if (Input.GetMouseButtonDown(0))
@@ -32,7 +31,6 @@ namespace StudyFromCodeMonkey.Study.Scripts
                 selectedUnit.Move(MouseWorld.GetPosition());
             }
         }
-        
         private bool TryHandleUnitSelection()
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -46,7 +44,6 @@ namespace StudyFromCodeMonkey.Study.Scripts
             }
             return false;
         }
-
         private void SelectedUnit(Unit unit)
         {
             selectedUnit = unit;

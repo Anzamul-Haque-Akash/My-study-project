@@ -13,18 +13,15 @@ namespace StudyFromCodeMonkey.Study.Scripts
         {
             _meshRenderer = GetComponent<MeshRenderer>();
         }
-
         private void Start()
         {
             UnitActionSystem.Instance.OnSelectedUnitChange += UnitActionSystem_OnSelectedUnitChanged;
             UpdateVisual();
         }
-
         private void UnitActionSystem_OnSelectedUnitChanged(object sender, EventArgs e)
         {
             UpdateVisual();
         }
-
         private void UpdateVisual()
         {
             if (UnitActionSystem.Instance.GetSelectedUnit() == unit)

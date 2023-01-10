@@ -16,7 +16,6 @@ namespace StudyFromCodeMonkey.Study.Scripts
         {
             _targetPosition = transform.position;
         }
-
         private void Update()
         {
             Transform unitTransform = transform;
