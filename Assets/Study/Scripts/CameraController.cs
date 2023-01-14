@@ -12,6 +12,10 @@ namespace StudyFromCodeMonkey.Study.Scripts
 
         private CinemachineTransposer _cinemachineTransposer;
         private Vector3 _targetFollowOffset;
+
+        private float moveSpeed = 10f;
+        private float rotationSpeed = 100f;
+        private float zoomAmount = 1f;
         
         private void Start()
         {
@@ -21,7 +25,15 @@ namespace StudyFromCodeMonkey.Study.Scripts
 
         private void Update()
         {
+            MoveCamera();
+            RotateCamera();
+            ZoomInAndZoomOut();
+        }
+
+        private void MoveCamera()
+        {
             Vector3 inputMoveDir = new Vector3(0f, 0f, 0f);
+            
             if (Input.GetKey(KeyCode.W))
             {
                 inputMoveDir.z = +1f;
@@ -38,13 +50,13 @@ namespace StudyFromCodeMonkey.Study.Scripts
             {
                 inputMoveDir.x = +1f;
             }
-
-            float moveSpeed = 10f;
-
+            
             Vector3 moveVector = transform.forward * inputMoveDir.z + transform.right * inputMoveDir.x;
             
             transform.position += moveVector * moveSpeed * Time.deltaTime;
-
+        }
+        private void RotateCamera()
+        {
             Vector3 rotationVector = new Vector3(0f, 0f, 0f);
             if (Input.GetKey(KeyCode.Q))
             {
@@ -54,12 +66,11 @@ namespace StudyFromCodeMonkey.Study.Scripts
             {
                 rotationVector.y = -1f;
             }
-
-            float rotationSpeed = 100f;
             transform.eulerAngles += rotationVector * rotationSpeed * Time.deltaTime;
+        }
+        private void ZoomInAndZoomOut()
+        {
             
-            
-            float zoomAmount = 1f;
             if (Input.GetKey(KeyCode.Z))
             {
                 _targetFollowOffset.y -= zoomAmount;
@@ -74,6 +85,7 @@ namespace StudyFromCodeMonkey.Study.Scripts
             float zoomSpeed = 5f;
             _cinemachineTransposer.m_FollowOffset = Vector3.Lerp(_cinemachineTransposer.m_FollowOffset,
                 _targetFollowOffset, Time.deltaTime * zoomSpeed);
+            
         }
     }
 }
