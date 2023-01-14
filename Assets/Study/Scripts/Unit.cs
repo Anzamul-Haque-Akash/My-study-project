@@ -1,4 +1,4 @@
-using System;
+using StudyFromCodeMonkey.Study.Scripts.Grid;
 using UnityEngine;
 
 namespace StudyFromCodeMonkey.Study.Scripts
@@ -11,11 +11,19 @@ namespace StudyFromCodeMonkey.Study.Scripts
         [SerializeField] private float stoppingDistance;
         
         private Vector3 _targetPosition;
+        private GridPosition _gridPosition;
 
         private void Awake()
         {
             _targetPosition = transform.position;
         }
+
+        private void Start()
+        {
+            _gridPosition  = LevelGrid.Instance.GetGridPosition(transform.position);
+            LevelGrid.Instance.SetUnitAGridPosition(_gridPosition, this);
+        }
+
         private void Update()
         {
             Transform unitTransform = transform;
@@ -34,6 +42,14 @@ namespace StudyFromCodeMonkey.Study.Scripts
             else
             {
                 unityAnimator.SetBool("isWalking", false);
+            }
+            
+            
+            GridPosition newGridPosition  = LevelGrid.Instance.GetGridPosition(transform.position);
+            if (newGridPosition != _gridPosition)
+            {
+                LevelGrid.Instance.UnitMoveGridPosition(this, _gridPosition, newGridPosition);
+                _gridPosition = LevelGrid.Instance.GetGridPosition(transform.position);
             }
         }
         public void Move(Vector3 targetPosition)
