@@ -49,7 +49,7 @@ namespace StudyFromCodeMonkey.Study.Scripts
             if (newGridPosition != _gridPosition)
             {
                 LevelGrid.Instance.UnitMoveGridPosition(this, _gridPosition, newGridPosition);
-                _gridPosition = LevelGrid.Instance.GetGridPosition(transform.position);
+                _gridPosition = newGridPosition;
             }
         }
         public void Move(Vector3 targetPosition)
