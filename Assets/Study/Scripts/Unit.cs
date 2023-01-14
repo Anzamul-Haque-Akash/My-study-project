@@ -21,7 +21,7 @@ namespace StudyFromCodeMonkey.Study.Scripts
         private void Start()
         {
             _gridPosition  = LevelGrid.Instance.GetGridPosition(transform.position);
-            LevelGrid.Instance.SetUnitAGridPosition(_gridPosition, this);
+            LevelGrid.Instance.AddUnitAGridPosition(_gridPosition, this);
         }
 
         private void Update()
@@ -43,8 +43,7 @@ namespace StudyFromCodeMonkey.Study.Scripts
             {
                 unityAnimator.SetBool("isWalking", false);
             }
-            
-            
+
             GridPosition newGridPosition  = LevelGrid.Instance.GetGridPosition(transform.position);
             if (newGridPosition != _gridPosition)
             {

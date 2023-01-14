@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace StudyFromCodeMonkey.Study.Scripts.Grid
@@ -24,27 +25,27 @@ namespace StudyFromCodeMonkey.Study.Scripts.Grid
             _gridSystem.CreateDebugObject(mGridDebugObjectPrefab);
         }
 
-        public void SetUnitAGridPosition(GridPosition gridPosition, Unit unit)
+        public void AddUnitAGridPosition(GridPosition gridPosition, Unit unit)
         {
             GridObject gridObject = _gridSystem.GetGridObject(gridPosition);
-            gridObject.SetUnit(unit);
+            gridObject.AddUnit(unit);
         }
-        public Unit GetUnitAGridPosition(GridPosition gridPosition)
+        public List<Unit> GetUnitListAGridPosition(GridPosition gridPosition)
         {
             GridObject gridObject = _gridSystem.GetGridObject(gridPosition);
-            return gridObject.GetUnit();
+            return gridObject.GetUnitList();
         }
 
-        public void ClearUnitAGridPosition(GridPosition gridPosition)
+        public void RemoveUnitAGridPosition(GridPosition gridPosition, Unit unit)
         {
             GridObject gridObject = _gridSystem.GetGridObject(gridPosition);
-            gridObject.SetUnit(null);
+            gridObject.RemoveUnit(unit);
         }
 
         public void UnitMoveGridPosition(Unit unit, GridPosition fromGridPosition, GridPosition toGridPosition)
         {
-            ClearUnitAGridPosition(fromGridPosition);
-            SetUnitAGridPosition(toGridPosition, unit);
+            RemoveUnitAGridPosition(fromGridPosition, unit);
+            AddUnitAGridPosition(toGridPosition, unit);
         }
 
         public GridPosition GetGridPosition(Vector3 worldPosition) => _gridSystem.GetGridPosition(worldPosition);
