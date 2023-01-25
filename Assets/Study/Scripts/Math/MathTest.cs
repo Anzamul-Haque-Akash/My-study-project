@@ -15,6 +15,10 @@ namespace StudyFromCodeMonkey.Study.Scripts.Math
             b.position = new Vector3(-4f, 1f, 0f);
             c.position = (a.position + b.position);
             d.position = (a.position - b.position);
+
+            Vector3 distanceVector = (b.position - a.position);
+            float distance = Mathf.Sqrt(Mathf.Pow(distanceVector.x, 2) + Mathf.Pow(distanceVector.y, 2));
+            Debug.Log("Distance from A to B : " + distance);
         }
 
         private void OnDrawGizmos()
